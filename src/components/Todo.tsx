@@ -3,6 +3,7 @@ import { AddTaskForm } from './AddTaskForm'
 import { SearchTaskForm } from './SearchTaskForm'
 import { TodoInfo } from './TodoInfo'
 import { TodoList } from './TodoList'
+import { Button } from './Button'
 
 export interface Task {
   id: string
@@ -28,6 +29,8 @@ export const Todo = () => {
   const [searchQuery, setSearchQuery] = useState('')
 
   const newTaskInputRef = useRef<HTMLInputElement>(null)
+  const firstIncompleteTaskRef = useRef<HTMLLIElement>(null)
+  const firstIncompleteTaskId = tasks.find(({ isDone }) => !isDone)?.id
 
   const deleteAllTasks = () => {
     const isConfirmed = confirm('Are you sure you want to delete all?')
@@ -83,6 +86,10 @@ export const Todo = () => {
     ? tasks.filter(({ title }) => title.toLowerCase().includes(clearSearchQuery))
     : null
 
+  const handleScrollToFirstIncomplete = () => {
+    firstIncompleteTaskRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <div className="todo">
       <h1 className="todo__title">To Do List</h1>
@@ -101,9 +108,14 @@ export const Todo = () => {
         done={tasks.filter(({ isDone }) => isDone).length}
         onDeleteAllButtonClick={deleteAllTasks}
       />
+      <Button onClick={handleScrollToFirstIncomplete}>
+        Show first incomplete task
+      </Button>
       <TodoList
         tasks={tasks}
         filteredTasks={filteredTasks}
+        firstIncompleteTaskRef={firstIncompleteTaskRef}
+        firstIncompleteTaskId={firstIncompleteTaskId}
         onDeleteTaskButtonClick={deleteTask}
         onTaskCompleteChange={toggleTaskComplete}
       />

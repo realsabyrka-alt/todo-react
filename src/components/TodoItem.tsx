@@ -1,10 +1,12 @@
 import clsx from 'clsx'
+import * as React from 'react'
 
 interface TodoItemProps {
   className?: string
   id: string
   title: string
   isDone: boolean
+  ref: React.Ref<HTMLLIElement>
   onDeleteTaskButtonClick: (taskId: string) => void
   onTaskCompleteChange: (taskId: string, isDone: boolean) => void
 }
@@ -16,9 +18,10 @@ export const TodoItem = ({
   isDone,
   onDeleteTaskButtonClick,
   onTaskCompleteChange,
+  ref,
 }: TodoItemProps) => {
   return (
-    <li className={clsx('todo-item', className)}>
+    <li className={clsx('todo-item', className)} ref={ref}>
       <input
         className="todo-item__checkbox"
         id={id}

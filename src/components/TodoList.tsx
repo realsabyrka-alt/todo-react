@@ -1,9 +1,12 @@
 import type { Task } from './Todo'
 import { TodoItem } from './TodoItem'
+import * as React from 'react'
 
 interface TodoListProps {
   tasks: Task[]
   filteredTasks: Task[] | null
+  firstIncompleteTaskRef: React.Ref<HTMLLIElement>
+  firstIncompleteTaskId?: string
   onDeleteTaskButtonClick: (taskId: string) => void
   onTaskCompleteChange: (taskId: string, isDone: boolean) => void
 }
@@ -13,6 +16,8 @@ export const TodoList = ({
   filteredTasks,
   onDeleteTaskButtonClick,
   onTaskCompleteChange,
+  firstIncompleteTaskRef,
+  firstIncompleteTaskId,
 }: TodoListProps) => {
   const hasTasks = tasks.length > 0
   const isEmptyFilteredTasks = filteredTasks?.length === 0
@@ -31,6 +36,7 @@ export const TodoList = ({
         <TodoItem
           className="todo__item"
           key={task.id}
+          ref={task.id === firstIncompleteTaskId ? firstIncompleteTaskRef : null}
           onDeleteTaskButtonClick={onDeleteTaskButtonClick}
           onTaskCompleteChange={onTaskCompleteChange}
           {...task}
