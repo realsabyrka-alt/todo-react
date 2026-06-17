@@ -4,9 +4,10 @@ import * as React from 'react'
 interface FieldProps extends React.ComponentPropsWithoutRef<'input'> {
   label: string
   id: string
+  ref: React.Ref<HTMLInputElement>
 }
 
-export const Field = ({ className, label, id, type = 'text', ...props }: FieldProps) => {
+export const Field = ({ className, label, id, type = 'text', ref, ...props }: FieldProps) => {
   return (
     <div className={clsx('field', className)}>
       <label
@@ -21,6 +22,7 @@ export const Field = ({ className, label, id, type = 'text', ...props }: FieldPr
         placeholder=" "
         autoComplete="off"
         type={type}
+        ref={ref}
         {...props}
       />
     </div>
