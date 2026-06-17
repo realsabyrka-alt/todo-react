@@ -1,17 +1,27 @@
-export const TodoItem = () => {
+import clsx from 'clsx'
+
+interface TodoItemProps {
+  className?: string
+  id: string
+  title: string
+  isDone: boolean
+}
+
+export const TodoItem = ({ className, id, title, isDone }: TodoItemProps) => {
   return (
-    <li className="todo__item todo-item">
+    <li className={clsx('todo-item', className)}>
       <input
         className="todo-item__checkbox"
-        id="task-1"
+        id={id}
         type="checkbox"
-        checked
+        checked={isDone}
+        readOnly
       />
       <label
         className="todo-item__label"
-        htmlFor="task-1"
+        htmlFor={id}
       >
-        Task 1
+        {title}
       </label>
       <button
         className="todo-item__delete-button"
