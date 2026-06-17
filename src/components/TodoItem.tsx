@@ -5,9 +5,18 @@ interface TodoItemProps {
   id: string
   title: string
   isDone: boolean
+  onDeleteTaskButtonClick: (taskId: string) => void
+  onTaskCompleteChange: (taskId: string, isDone: boolean) => void
 }
 
-export const TodoItem = ({ className, id, title, isDone }: TodoItemProps) => {
+export const TodoItem = ({
+  className,
+  id,
+  title,
+  isDone,
+  onDeleteTaskButtonClick,
+  onTaskCompleteChange,
+}: TodoItemProps) => {
   return (
     <li className={clsx('todo-item', className)}>
       <input
@@ -15,7 +24,9 @@ export const TodoItem = ({ className, id, title, isDone }: TodoItemProps) => {
         id={id}
         type="checkbox"
         checked={isDone}
-        readOnly
+        onChange={({ target }) => {
+          onTaskCompleteChange(id, target.checked)
+        }}
       />
       <label
         className="todo-item__label"
@@ -27,6 +38,7 @@ export const TodoItem = ({ className, id, title, isDone }: TodoItemProps) => {
         className="todo-item__delete-button"
         aria-label="Delete"
         title="Delete"
+        onClick={() => onDeleteTaskButtonClick(id)}
       >
         <svg
           width="20"

@@ -1,9 +1,10 @@
 interface TodoInfoProps {
   total: number
   done: number
+  onDeleteAllButtonClick: () => void
 }
 
-export const TodoInfo = ({ total, done }: TodoInfoProps) => {
+export const TodoInfo = ({ total, done, onDeleteAllButtonClick }: TodoInfoProps) => {
   const hasTasks = total > 0
 
   return (
@@ -12,7 +13,11 @@ export const TodoInfo = ({ total, done }: TodoInfoProps) => {
         Done {done} from {total}
       </div>
       {hasTasks && (
-        <button className="todo__delete-all-button" type="button">
+        <button
+          className="todo__delete-all-button"
+          type="button"
+          onClick={onDeleteAllButtonClick}
+        >
           Delete all
         </button>
       )}

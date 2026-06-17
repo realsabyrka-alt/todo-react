@@ -1,9 +1,19 @@
+import * as React from 'react'
 import { Field } from './Field'
 import { Button } from './Button'
 
-export const AddTaskForm = () => {
+interface AddTaskFormProps {
+  addTask: () => void
+}
+
+export const AddTaskForm = ({ addTask }: AddTaskFormProps) => {
+  const onSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    addTask()
+  }
+
   return (
-    <form className="todo__form">
+    <form className="todo__form" onSubmit={onSubmit}>
       <Field
         className="todo__field"
         label="New task title"
