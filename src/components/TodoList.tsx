@@ -1,6 +1,7 @@
+import * as React from 'react'
+import { memo } from 'react'
 import type { Task } from './Todo'
 import { TodoItem } from './TodoItem'
-import * as React from 'react'
 
 interface TodoListProps {
   tasks: Task[]
@@ -11,7 +12,7 @@ interface TodoListProps {
   onTaskCompleteChange: (taskId: string, isDone: boolean) => void
 }
 
-export const TodoList = ({
+export const TodoList = memo(({
   tasks = [],
   filteredTasks,
   onDeleteTaskButtonClick,
@@ -44,4 +45,4 @@ export const TodoList = ({
       ))}
     </ul>
   )
-}
+})

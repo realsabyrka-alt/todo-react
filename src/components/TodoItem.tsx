@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import * as React from 'react'
+import { memo } from 'react'
 
 interface TodoItemProps {
   className?: string
@@ -11,7 +12,7 @@ interface TodoItemProps {
   onTaskCompleteChange: (taskId: string, isDone: boolean) => void
 }
 
-export const TodoItem = ({
+export const TodoItem = memo(({
   className,
   id,
   title,
@@ -61,4 +62,4 @@ export const TodoItem = ({
       </button>
     </li>
   )
-}
+})

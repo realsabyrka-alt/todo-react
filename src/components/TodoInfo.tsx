@@ -1,10 +1,12 @@
+import { memo } from 'react'
+
 interface TodoInfoProps {
   total: number
   done: number
   onDeleteAllButtonClick: () => void
 }
 
-export const TodoInfo = ({ total, done, onDeleteAllButtonClick }: TodoInfoProps) => {
+export const TodoInfo = memo(({ total, done, onDeleteAllButtonClick }: TodoInfoProps) => {
   const hasTasks = total > 0
 
   return (
@@ -23,4 +25,4 @@ export const TodoInfo = ({ total, done, onDeleteAllButtonClick }: TodoInfoProps)
       )}
     </div>
   )
-}
+})
